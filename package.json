@@ -1,0 +1,23 @@
+{
+  "name": "year-wrapped-creator",
+  "version": "1.0.0",
+  "description": "year wrapped creator in spotify style.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perseus01/year-wrapped-creator.git"
+  },
+  "author": "Divyang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perseus01/year-wrapped-creator/issues"
+  },
+  "homepage": "https://github.com/perseus01/year-wrapped-creator#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6"
+  }
+}

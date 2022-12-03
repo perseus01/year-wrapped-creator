@@ -1,0 +1,33 @@
+<main>
+    <form action="/mj/generate-wrapped" method="post">
+        <label for="image-label">
+            Thumbnail image:
+            <input type="file" name="thumbnail-image" id="thumbnail-image">
+        </label>
+        <label for="top-artists-label" class="form-label">
+            Top Artists: <br>
+            <input type="text" name="artist-1" id="artist-1" class="form-control"><br>
+            <input type="text" name="artist-2" id="artist-2" class="form-control"><br>
+            <input type="text" name="artist-3" id="artist-3" class="form-control"><br>
+            <input type="text" name="artist-4" id="artist-4" class="form-control"><br>
+            <input type="text" name="artist-5" id="artist-5" class="form-control"><br>
+        </label>
+        <label for="top-keywords-label" class="form-label">
+            Top Keywords: <br>
+            1. <input type="text" name="keyword-1" id="keyword-1" class="form-control"><br>
+            2. <input type="text" name="keyword-2" id="keyword-2" class="form-control"><br> 
+            3. <input type="text" name="keyword-3" id="keyword-3" class="form-control"><br>
+            4. <input type="text" name="keyword-4" id="keyword-4" class="form-control"><br>
+            5. <input type="text" name="keyword-5" id="keyword-5" class="form-control"><br>
+        </label>
+        <label for="hours-used-label" class="form-label">
+            Hours Used:
+            <input type="number" name="hours-used" id="hours-used" class="form-control"> <br>
+        </label>
+        <label for="images-created-label" class="form-label">
+            Images Created:
+            <input type="number" name="images-created" id="images-created" class="form-control"><br>
+        </label>
+        <input type="submit" value="Generate" class="form-control">
+    </form>
+</main>
