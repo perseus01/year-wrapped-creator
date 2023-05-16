@@ -1,30 +1,42 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
-const static = express.static(__dirname + "/public");
 const configRoutes = require("./routes");
-const exphbs = require("express-handlebars");
+const util = require("util");
+let urlCounter = {};
 
-app.use("/public", static);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+app.use("*", (req, res, next) => {
+	let currentUrl = req.headers.host + req.originalUrl;
+	if (urlCounter[currentUrl]) {
+		urlCounter[currentUrl]++;
+	} else {
+		urlCounter[currentUrl] = 1;
+	}
+	let reqBodyLog = {};
+	if (req.body) reqBodyLog = { ...req.body };
+	if (reqBodyLog.password) reqBodyLog.password = "***";
+	console.log(
+		`HTTP verb: ${req.method} | url: ${currentUrl} | times requested: ${urlCounter[currentUrl]} | request body: ${util.inspect(reqBodyLog, {
+			depth: null,
+		})}`
+	);
+	next();
+});
 
 app.use(
 	session({
-		name: "year-wrapped-creator",
-		secret: "secret-wraps",
+		name: "Year Wrapped Creator",
+		secret: "Super Secret String",
+		saveUninitialized: false,
 		resave: false,
-		saveUninitialized: true,
-		cookie: { maxAge: 86400000 },
 	})
 );
 
 configRoutes(app);
 
-app.listen(3000, () => {
-	console.log("We've now got a server!");
-	console.log("Your routes will be running on http://localhost:3000");
+app.listen(4000, () => {
+	console.log("Server is running on port 4000");
 });
