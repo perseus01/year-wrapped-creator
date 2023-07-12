@@ -18,7 +18,7 @@ const validateId = (id, field) => {
 const validateUsername = (username) => {
 	username = validateString(username, "username");
 	const specialCharacters = /[\!\@\#\$\%\^\&\*\/\\]{1,}/g;
-	if (username.test(specialCharacters)) throw { status: 400, message: "Username cannot contain special characters" };
+	if (specialCharacters.test(username)) throw { status: 400, message: "Username cannot contain special characters" };
 	if (username.length < 3) throw { status: 400, message: "Username must be at least 3 characters long" };
 	return username;
 };
@@ -38,9 +38,34 @@ const validatePassword = (password) => {
 	return password;
 };
 
+const validateIntegerNumber = (num, field) => {
+	if (isNaN(num)) throw { status: 400, message: `${field} must be a positive integer` };
+	if (num < 0) throw { status: 400, message: `${field} must be a positive integer` };
+	num = parseInt(num);
+	num = Number(num);
+	return num;
+};
+
+const validateFloatingNumber = (num, field) => {
+	if (isNaN(num) || parseFloat(num) < 0) throw { status: 400, message: `${field} must be a positive floating point number` };
+	num = parseFloat(num).toFixed(2);
+	num = Number(num);
+	return num;
+};
+
+const validateHexColor = (color, field) => {
+	color = validateString(color, field);
+	const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+	if (!hexRegex.test(color)) throw { status: 400, message: `Invalid hex color for ${field}` };
+	return color;
+};
+
 module.exports = {
 	validateString,
 	validateId,
 	validateUsername,
 	validatePassword,
+	validateIntegerNumber,
+	validateFloatingNumber,
+	validateHexColor,
 };

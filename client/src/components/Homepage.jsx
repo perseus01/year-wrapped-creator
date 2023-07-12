@@ -4,64 +4,84 @@ import { Midjourney } from "./Midjourney";
 import { Reddit } from "./Reddit";
 import { Stackoverflow } from "./Stackoverflow";
 import { Github } from "./Github";
+import { Loading } from "./reusables/Loading";
 import axios from "axios";
 
 export const Homepage = () => {
-	const [wrap, setWrap] = useState("");
+	const [wrap, setWrap] = useState("midjourney");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		async function checkLoginStatus() {
-			const { data } = await axios.get("/login/check-login", {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			setLoading(true);
+			const { data } = await axios.get("/login/check-login");
 			console.log(data);
 			setIsLoggedIn(data.loginStatus);
+			setLoading(false);
 		}
 		checkLoginStatus();
 	}, []);
 
 	const handleLogout = async () => {
+		setLoading(true);
 		const { data } = await axios.get("/logout");
 		if (data.successful) {
 			setIsLoggedIn(false);
+			window.location.reload(false);
 		}
+		setLoading(false);
 	};
 
+	if (loading) {
+		return <Loading />;
+	}
+
 	return (
-		<div className="py-20 text-white">
+		<div className="text-white">
 			<main>
-				{isLoggedIn ? (
-					<div>
-						<button onClick={() => handleLogout()}>Logout</button>
-						<button>
-							<Link to="/my-collection">My Collection</Link>
-						</button>
+				<div className="flex border-b border-indigo-300 pt-2 pb-4">
+					<div className="flex flex-col justify-center items-center">
+						<label htmlFor="wrap" className="ml-4">
+							Select a Template:
+							<select
+								className="appearance-none w-fit ml-4 mt-2 py-2 pl-3 pr-10 text-base text-black leading-6 bg-white border border-gray-300 rounded-md focus:outline-none hover:cursor-pointer"
+								onChange={(e) => setWrap(e.target.value)}
+							>
+								<option value="midjourney">Midjourney</option>
+								<option value="reddit">Reddit</option>
+								<option value="stackoverflow">Stackoverflow</option>
+								<option value="github">Github</option>
+							</select>
+						</label>
 					</div>
-				) : (
-					<div>
-						<button>
-							<Link to="/login">Login</Link>
-						</button>
-						<button>
-							<Link to="/signup">Signup</Link>
-						</button>
-					</div>
-				)}
-				<div className="flex flex-col justify-center items-center">
-					<label className="text-xl">
-						Select a wrap template
-						<select name="wraps" id="wraps" className="p-2 mx-4 rounded=lg text-black hover:cursor-pointer" onChange={(e) => setWrap(e.target.value)}>
-							<option value="">Select a wrap template</option>
-							<option value="midjourney">Midjourney</option>
-							<option value="reddit">Reddit</option>
-							<option value="stackoverflow">Stackoverflow</option>
-							<option value="github">Github</option>
-						</select>
-					</label>
+					{isLoggedIn ? (
+						<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
+							<button onClick={() => handleLogout()} className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+								Logout
+							</button>
+							<button>
+								<Link to="/my-collection" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+									My Collection
+								</Link>
+							</button>
+						</div>
+					) : (
+						<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
+							<button>
+								<Link to="/login" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+									Login
+								</Link>
+							</button>
+							<button>
+								<Link to="/signup" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+									Signup
+								</Link>
+							</button>
+						</div>
+					)}
 				</div>
+
 				<div className="py-12">
 					{wrap === "midjourney" ? (
 						<Midjourney />
@@ -72,7 +92,9 @@ export const Homepage = () => {
 					) : wrap === "github" ? (
 						<Github />
 					) : (
-						""
+						<div>
+							<div>Hello</div>
+						</div>
 					)}
 				</div>
 			</main>

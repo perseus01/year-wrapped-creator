@@ -14,6 +14,5 @@ const getCollectionFn = (collection) => {
 };
 
 module.exports = {
-	wraps: getCollectionFn("wraps"),
 	users: getCollectionFn("users"),
 };

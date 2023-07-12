@@ -3,7 +3,7 @@ const session = require("express-session");
 
 const router = express.Router();
 
-router.route("/").post(async (req, res) => {
+router.route("/").get(async (req, res) => {
 	if (req.session.user) {
 		try {
 			req.session.destroy((err) => {
@@ -13,6 +13,8 @@ router.route("/").post(async (req, res) => {
 		} catch (e) {
 			return res.status(500).json({ error: e });
 		}
+	} else {
+		return res.status(400).json({ successful: false });
 	}
 });
 

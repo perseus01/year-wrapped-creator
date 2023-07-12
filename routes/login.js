@@ -1,8 +1,6 @@
 const express = require("express");
 const data = require("../data");
 const usersData = data.users;
-const validators = require("../validators");
-
 const router = express.Router();
 
 router.route("/").post(async (req, res) => {
@@ -17,15 +15,12 @@ router.route("/").post(async (req, res) => {
 		const isValidLogin = await usersData.checkUserLogin(username, password);
 
 		if (isValidLogin) {
-			req.session.user = {
-				_id: isValidLogin._id,
-				name: isValidLogin.name,
-				username: isValidLogin.username,
-			};
+			req.session.user = { ...isValidLogin };
+			console.log("logging session after logging in: ", req.session.user);
 			return res.status(200).json(isValidLogin);
 		}
 	} catch (e) {
-		return res.status(400).json({ error: e });
+		return res.status(400).json({ error: e.toString() });
 	}
 });
 

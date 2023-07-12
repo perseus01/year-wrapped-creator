@@ -3,10 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Homepage } from "./components/Homepage";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
+import { MyCollection } from "./components/MyCollection";
 import { NotFound } from "./components/NotFound";
 function App() {
 	return (
-		<div className="App min-h-screen bg-slate-950 text-white">
+		<div className="App min-h-screen bg-gray-900 text-white">
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Homepage />} />
@@ -17,9 +18,9 @@ function App() {
 				<Routes>
 					<Route path="/signup" element={<Signup />} />
 				</Routes>
-				{/* <Routes>
-					<Route path="*" element={<NotFound />} />
-				</Routes> */}
+				<Routes>
+					<Route path="/my-collection" element={<MyCollection />} />
+				</Routes>
 			</BrowserRouter>
 		</div>
 	);

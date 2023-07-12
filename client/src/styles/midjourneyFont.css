@@ -1,0 +1,8 @@
+@font-face {
+	font-family: "midjourney-font";
+	src: url("../fonts/JetBrainsMono-Regular.ttf");
+}
+
+.midjourney-font {
+	font-family: "midjourney-font", monospace;
+}
