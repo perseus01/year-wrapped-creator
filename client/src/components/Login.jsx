@@ -33,16 +33,12 @@ export const Login = () => {
 		<div>
 			<div className="flex border-b border-indigo-300 pt-2 pb-4">
 				<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
-					<button>
-						<Link to="/" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-							Home
-						</Link>
-					</button>
-					<button>
-						<Link to="/signup" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-							Signup
-						</Link>
-					</button>
+					<Link to="/" className="w-fit h-full mx-4 rounded-lg">
+						<button color="indigo">Home</button>
+					</Link>
+					<Link to="/signup" className="w-fit h-full mx-4 rounded-lg">
+						<button color="indigo">Signup</button>
+					</Link>
 				</div>
 			</div>
 			<div className="flex justify-center items-center h-screen">
@@ -68,11 +64,7 @@ export const Login = () => {
 							placeholder="Password"
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						<button
-							type="submit"
-							className="w-fit px-4 py-2 bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-700 rounded-lg"
-							onClick={(e) => handleLogin(e)}
-						>
+						<button color="indigo" type="submit" className="w-fit" onClick={(e) => handleLogin(e)}>
 							Login
 						</button>
 					</div>

@@ -4,38 +4,37 @@ import { Midjourney } from "./Midjourney";
 import { Reddit } from "./Reddit";
 import { Stackoverflow } from "./Stackoverflow";
 import { Github } from "./Github";
-import { Loading } from "./reusables/Loading";
 import axios from "axios";
 
 export const Homepage = () => {
 	const [wrap, setWrap] = useState("midjourney");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		async function checkLoginStatus() {
-			setLoading(true);
+			// setLoading(true);
 			const { data } = await axios.get("/login/check-login");
 			console.log(data);
 			setIsLoggedIn(data.loginStatus);
-			setLoading(false);
+			// setLoading(false);
 		}
 		checkLoginStatus();
 	}, []);
 
 	const handleLogout = async () => {
-		setLoading(true);
+		// setLoading(true);
 		const { data } = await axios.get("/logout");
 		if (data.successful) {
 			setIsLoggedIn(false);
 			window.location.reload(false);
 		}
-		setLoading(false);
+		// setLoading(false);
 	};
 
-	if (loading) {
-		return <Loading />;
-	}
+	// if (loading) {
+	// 	return <Loading />;
+	// }
 
 	return (
 		<div className="text-white">
@@ -57,27 +56,21 @@ export const Homepage = () => {
 					</div>
 					{isLoggedIn ? (
 						<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
-							<button onClick={() => handleLogout()} className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+							<button onClick={() => handleLogout()} color="indigo" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
 								Logout
 							</button>
-							<button>
-								<Link to="/my-collection" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-									My Collection
-								</Link>
-							</button>
+							<Link to="/my-collection" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
+								<button color="indigo">My Collection</button>
+							</Link>
 						</div>
 					) : (
 						<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
-							<button>
-								<Link to="/login" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-									Login
-								</Link>
-							</button>
-							<button>
-								<Link to="/signup" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-									Signup
-								</Link>
-							</button>
+							<Link to="/login" className="mx-2">
+								<button color="indigo">Login</button>
+							</Link>
+							<Link to="/signup" className="mx-2">
+								<button color="indigo">Signup</button>
+							</Link>
 						</div>
 					)}
 				</div>
@@ -93,7 +86,7 @@ export const Homepage = () => {
 						<Github />
 					) : (
 						<div>
-							<div>Hello</div>
+							<div>No template selected</div>
 						</div>
 					)}
 				</div>

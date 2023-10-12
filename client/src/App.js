@@ -21,6 +21,9 @@ function App() {
 				<Routes>
 					<Route path="/my-collection" element={<MyCollection />} />
 				</Routes>
+				{/* <Routes>
+					<Route path="*" element={<NotFound />} />
+				</Routes> */}
 			</BrowserRouter>
 		</div>
 	);

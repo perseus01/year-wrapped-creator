@@ -12,16 +12,12 @@ export const Signup = () => {
 		<div>
 			<div className="flex border-b border-indigo-300 pt-2 pb-4">
 				<div className="w-fit ml-4 mt-2 py-2 pl-3 pr-10">
-					<button>
-						<Link to="/" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-							Home
-						</Link>
-					</button>
-					<button>
-						<Link to="/login" className="w-fit h-full px-4 py-2 mx-8 bg-indigo-900 rounded-lg">
-							Login
-						</Link>
-					</button>
+					<Link to="/" className="w-fit h-full mx-4 rounded-lg">
+						<button color="indigo">Home</button>
+					</Link>
+					<Link to="/login" className="w-fit h-full mx-4 rounded-lg">
+						<button color="indigo">Login</button>
+					</Link>
 				</div>
 			</div>
 			<div className="flex justify-center items-center h-screen">
